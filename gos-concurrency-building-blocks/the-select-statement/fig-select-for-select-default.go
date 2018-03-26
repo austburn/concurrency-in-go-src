@@ -19,11 +19,10 @@ loop:
 		case <-done:
 			break loop
 		default:
+			// Simulate work
+			workCounter++
+			time.Sleep(1 * time.Second)
 		}
-
-		// Simulate work
-		workCounter++
-		time.Sleep(1 * time.Second)
 	}
 
 	fmt.Printf("Achieved %v cycles of work before signalled to stop.\n", workCounter)

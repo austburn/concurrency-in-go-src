@@ -33,6 +33,7 @@ func main() {
 				case <-done:
 					return
 				case multipliedStream <- i * multiplier:
+					fmt.Println("Multiplying", i, "by", multiplier)
 				}
 			}
 		}()
@@ -52,6 +53,7 @@ func main() {
 				case <-done:
 					return
 				case addedStream <- i + additive:
+					fmt.Println("Adding", i, "to", additive)
 				}
 			}
 		}()
@@ -62,9 +64,10 @@ func main() {
 	defer close(done)
 
 	intStream := generator(done, 1, 2, 3, 4)
-	pipeline := multiply(done, add(done, multiply(done, intStream, 2), 1), 2)
+	pipeline := multiply(done, add(done, multiply(done, intStream, 2), 1), 1)
 
 	for v := range pipeline {
 		fmt.Println(v)
 	}
+	// fmt.Println(pipeline)
 }

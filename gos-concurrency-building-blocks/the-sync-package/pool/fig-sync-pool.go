@@ -21,6 +21,7 @@ func main() {
 	calcPool.Put(calcPool.New())
 	calcPool.Put(calcPool.New())
 
+	// could have taken 1gb of memory... but with a pool we limit resources
 	const numWorkers = 1024 * 1024
 	var wg sync.WaitGroup
 	wg.Add(numWorkers)
